@@ -75,6 +75,7 @@ $APPLICATION->SetTitle("Новости");
 		"MESSAGE_404" => "",
 		"VARIABLE_ALIASES" => Array("news"=>Array(),"section"=>Array(),"detail"=>Array(),"search"=>Array(),"rss"=>Array(),"rss_section"=>Array(),),
 		"SEF_URL_TEMPLATES" => Array("news"=>"","section"=>"","detail"=>"#ELEMENT_ID#/","search"=>"search/","rss"=>"rss/","rss_section"=>"#SECTION_ID#/rss/"),
+		"IBLOCK_ID_CANONICAL" => "5",
 		"VARIABLE_ALIASES" => Array(
 			"news" => Array(),
 			"section" => Array(),

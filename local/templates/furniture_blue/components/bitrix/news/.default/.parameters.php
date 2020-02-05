@@ -8,5 +8,11 @@ $arTemplateParameters = array(
 		"TYPE" => "CHECKBOX",
 		"DEFAULT" => "Y",
 	),
+	
+	"IBLOCK_ID_CANONICAL" => Array(
+		"PARENT" => "DETAIL_SETTINGS",
+		"NAME" => GetMessage("IBLOCK_ID_CANOINICAL"),
+		"TYPE" => "STRING",
+	),
 );
 ?>
