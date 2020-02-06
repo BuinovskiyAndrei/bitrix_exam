@@ -38,4 +38,13 @@ $APPLICATION->IncludeComponent("bitrix:menu", "bottom", array(
 		<div id="footer-design"><?=GetMessage("FOOTER_DISIGN")?></div>
 	</div>
 </body>
+<?if(defined("ERROR_404") && ERROR_404 == "Y"){
+    global $APPLICATION;
+    CEventLog::Add(array(
+         "SEVERITY" => "INFO",
+         "AUDIT_TYPE_ID" => "ERROR_404",
+         "MODULE_ID" => "main",
+         "DESCRIPTION" => $APPLICATION->GetCurPage(),
+      ));
+}?>
 </html>
