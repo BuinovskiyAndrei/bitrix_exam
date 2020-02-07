@@ -2,7 +2,6 @@
 IncludeModuleLangFile(__FILE__);
 
 AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("MyClass", "OnBeforeIBlockElementUpdateHandler"));
-
 class MyClass
 {
     // создаем обработчик события "OnBeforeIBlockElementUpdate"
@@ -17,6 +16,20 @@ class MyClass
                 return false;
             }
         }
+    }
+}
+
+
+AddEventHandler("main", "OnEpilog", "functionOnEpilog");
+function functionOnEpilog() {
+    if(defined("ERROR_404") && ERROR_404 == "Y"){
+        global $APPLICATION;
+        CEventLog::Add(array(
+             "SEVERITY" => "INFO",
+             "AUDIT_TYPE_ID" => "ERROR_404",
+             "MODULE_ID" => "main",
+             "DESCRIPTION" => $APPLICATION->GetCurPage(),
+        ));
     }
 }
 
