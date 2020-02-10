@@ -55,3 +55,23 @@ class MyForm
        }
    }
 }
+
+AddEventHandler("main", "OnBuildGlobalMenu", "MyOnBuildGlobalMenu");
+function MyOnBuildGlobalMenu(&$aGlobalMenu, &$aModuleMenu)
+{
+    global $USER;
+    $arGroups = CUser::GetUserGroup($USER->GetID());
+    if(in_array(5, $arGroups) && !in_array(1, $arGroups)){//если пользователь контент редактор, но не админ
+        // Убрать "Рабочий стол"
+        unset($aGlobalMenu["global_menu_desktop"]);
+        
+        foreach($aModuleMenu as $key=>$value){
+            if($value["text"] != "Новости"){
+                unset($aModuleMenu[$key]);
+            }
+        }
+    }
+}
+
+     
+      
