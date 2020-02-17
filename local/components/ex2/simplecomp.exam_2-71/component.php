@@ -128,13 +128,14 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		
 		$arResult["MIN_PRICE"] = min($arPrice);
 		$arResult["MAX_PRICE"] = max($arPrice);
+		
 		$arResult["COUNT"] = count($idClassificator);
 		
 		//тег для инфоблока услуги
 		$CACHE_MANAGER->RegisterTag("iblock_id_3");
 		
 		$this->SetResultCacheKeys(array(
-			"COUNT"
+			"COUNT",
 		));
 	
 		$this->IncludeComponentTemplate();
@@ -155,4 +156,5 @@ if ($APPLICATION->GetShowIncludeAreas())
 	);
 }
 $APPLICATION->SetTitle(GetMessage("TITLE", array("#COUNT#"=>$arResult["COUNT"])));
+//echo "<pre>";print_r($arResult);echo "</pre>"
 ?>
