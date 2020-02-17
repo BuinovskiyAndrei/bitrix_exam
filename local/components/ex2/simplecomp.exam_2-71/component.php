@@ -9,13 +9,15 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /** @global CDatabase $DB */
 /** @global CUser $USER */
 /** @global CMain $APPLICATION */
+/** @global CCacheManager $CACHE_MANAGER */
+global $CACHE_MANAGER;
 
 
 /*************************************************************************
 	Processing of received parameters
 *************************************************************************/
 if(!isset($arParams["CACHE_TIME"])){
-	$arParams["CACHE_TIME"] = 180;
+	$arParams["CACHE_TIME"] = 1800000;
 }
 
 if (isset($_GET["F"])) {
@@ -127,6 +129,9 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		$arResult["MIN_PRICE"] = min($arPrice);
 		$arResult["MAX_PRICE"] = max($arPrice);
 		$arResult["COUNT"] = count($idClassificator);
+		
+		//тег для инфоблока услуги
+		$CACHE_MANAGER->RegisterTag("iblock_id_3");
 		
 		$this->SetResultCacheKeys(array(
 			"COUNT"

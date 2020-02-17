@@ -15,7 +15,7 @@ $strElementAdd = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_
 $strElementEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_EDIT");
 $strElementDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_DELETE");
 $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELETE_CONFIRM'));
-?>
+?><?echo time();?>
 <a	href="<?=$APPLICATION->GetCurPage()?>?F=Y"><?=$APPLICATION->GetCurPage()?>?F=Y</a>
 <p><?=GetMessage("CATALOG")?></p>
 <ul>
