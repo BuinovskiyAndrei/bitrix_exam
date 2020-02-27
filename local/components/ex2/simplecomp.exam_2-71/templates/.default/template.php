@@ -20,7 +20,7 @@
 			<ul>
 				<?foreach ($classificator["PRODUCT"] as $product):?>
 				<li>
-					<?=$product["NAME"]?> - <?=$product["PRICE"]?> - <?=$product["MATERIAL"]?> - <?=$product["ARTNUMBER"]?> - <a href="<?=$product["DETAIL_PAGE_URL"]?>"><?=$product["DETAIL_PAGE_URL"]?></a>
+					<?=$product["NAME"]?> - <?=$product["PRICE"]?> - <?=$product["MATERIAL"]?> - <?=$product["ARTNUMBER"]?> - <a href="<?=$product["DETAIL_PAGE_URL"]?>">(<?=$product["DETAIL_PAGE_URL"]?>)</a>
 				</li>
 				<?endforeach;?>
 			</ul>

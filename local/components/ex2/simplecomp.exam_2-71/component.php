@@ -47,6 +47,10 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 	}
 	
 	if (!empty($idClassificator)) {
+		$sort = [
+			"name" => "asc",
+			"SORT" =>"asc"
+		];
 		//SELECT
 		$arSelect = array(
 			"ID",
@@ -68,7 +72,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		);
 	
 		//EXECUTE
-		$rsProduct = CIBlockElement::GetList(array("SORT" =>"DESC"), $arFilter, false, false, $arSelect);
+		$rsProduct = CIBlockElement::GetList($sort, $arFilter, false, false, $arSelect);
 		$rsProduct->SetUrlTemplates($arParams["URL_TAMPLATE"]);
 		while($arRes = $rsProduct->GetNext())
 		{
