@@ -14,9 +14,15 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /*************************************************************************
 	Processing of received parameters
 *************************************************************************/
-if(!isset($arParams["CACHE_TIME"]))
+if(!isset($arParams["CACHE_TIME"])){
 	$arParams["CACHE_TIME"] = 180;
+}
 
+if (isset($_GET["F"])) {
+	$arParams["CACHE_TIME"] = 0;
+}
+		
+	
 if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIFICATOR']) && !empty($arParams['PROPERTY_PRIVYZKA']) && $this->StartResultCache(false, $USER->GetGroups()))
 {
 	if(!CModule::IncludeModule("iblock"))
@@ -47,6 +53,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 	}
 	
 	if (!empty($idClassificator)) {
+		
 		$sort = [
 			"name" => "asc",
 			"SORT" =>"asc"
@@ -70,7 +77,14 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 			"CHECK_PERMISSIONS"=>"Y",
 			"PROPERTY_".$arParams['PROPERTY_PRIVYZKA'] => $idClassificator
 		);
-	
+		
+		if(isset($_GET["F"])){
+			$arFilter[]=[
+				"LOGIC" => "OR",
+				array("<=PROPERTY_PRICE" => 1700, "=PROPERTY_MATERIAL" => "Дерево, ткань"),
+				array("<PROPERTY_PRICE" => 1500, "=PROPERTY_MATERIAL" => "Металл, пластик"),
+			];
+		}
 		//EXECUTE
 		$rsProduct = CIBlockElement::GetList($sort, $arFilter, false, false, $arSelect);
 		$rsProduct->SetUrlTemplates($arParams["URL_TAMPLATE"]);
@@ -90,7 +104,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		$this->SetResultCacheKeys(array(
 			"COUNT"
 		));
-		
+	
 		$this->IncludeComponentTemplate();
 	} else {
 		$this->AbortResultCache();

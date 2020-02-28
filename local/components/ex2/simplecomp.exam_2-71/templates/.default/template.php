@@ -12,6 +12,7 @@
 /** @var CBitrixComponent $component */
 
 ?>
+<a	href="<?=$APPLICATION->GetCurPage()?>?F=Y"><?=$APPLICATION->GetCurPage()?>?F=Y</a>
 <p><?=GetMessage("CATALOG")?></p>
 <ul>
 	<?foreach ($arResult as $classificator):?>
