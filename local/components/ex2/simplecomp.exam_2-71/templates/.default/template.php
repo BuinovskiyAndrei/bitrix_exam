@@ -11,16 +11,27 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 
+$strElementAdd = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_ADD");
+$strElementEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_EDIT");
+$strElementDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID_PRODUCT"], "ELEMENT_DELETE");
+$arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELETE_CONFIRM'));
 ?>
 <a	href="<?=$APPLICATION->GetCurPage()?>?F=Y"><?=$APPLICATION->GetCurPage()?>?F=Y</a>
 <p><?=GetMessage("CATALOG")?></p>
 <ul>
 	<?foreach ($arResult as $classificator):?>
+	
 		<li>
 			<b><?=$classificator["NAME"];?></b>
 			<ul>
-				<?foreach ($classificator["PRODUCT"] as $product):?>
-				<li>
+				<?foreach ($classificator["PRODUCT"] as $product):
+					$this->AddEditAction($product['ID'], $product['EDIT_LINK'], $strElementEdit);
+					$this->AddEditAction($product['ID'], $product['EDIT_LINK'], $strElementEdit);
+					$this->AddDeleteAction($product['ID'], $product['DELETE_LINK'], $strElementDelete, $arElementDeleteParams);
+					$strMainID = $this->GetEditAreaId($product['ID']);
+				?>
+				
+				<li id="<?=$strMainID?>">
 					<?=$product["NAME"]?> - <?=$product["PRICE"]?> - <?=$product["MATERIAL"]?> - <?=$product["ARTNUMBER"]?> - <a href="<?=$product["DETAIL_PAGE_URL"]?>">(<?=$product["DETAIL_PAGE_URL"]?>)</a>
 				</li>
 				<?endforeach;?>

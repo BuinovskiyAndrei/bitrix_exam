@@ -90,12 +90,23 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		$rsProduct->SetUrlTemplates($arParams["URL_TAMPLATE"]);
 		while($arRes = $rsProduct->GetNext())
 		{
+			$arButtons = CIBlock::GetPanelButtons(
+				$arRes["IBLOCK_ID"],
+				$arRes["ID"],
+				$arRes["SECTION_ID"],
+				array("SECTION_BUTTONS"=>false, "SESSID"=>false, "CATALOG"=>true)
+			);
+
+		
 			$arResult[$arRes["PROPERTY_".$arParams["PROPERTY_PRIVYZKA"]."_VALUE"]]["PRODUCT"][] = [
 				"NAME" => $arRes["NAME"],
+				"ID" => $arRes["ID"],
 				"PRICE" => $arRes["PROPERTY_PRICE_VALUE"],
 				"ARTNUMBER" => $arRes["PROPERTY_ARTNUMBER_VALUE"],
 				"MATERIAL" => $arRes["PROPERTY_MATERIAL_VALUE"],
 				"DETAIL_PAGE_URL" => $arRes["DETAIL_PAGE_URL"],
+				"EDIT_LINK" => $arButtons["edit"]["edit_element"]["ACTION_URL"],
+				"DELETE_LINK" => $arButtons["edit"]["delete_element"]["ACTION_URL"],
 			];
 		}
 		
