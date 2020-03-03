@@ -122,5 +122,16 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 	}
 }
 
+if ($APPLICATION->GetShowIncludeAreas())
+{
+	$this->AddIncludeAreaIcon(
+		Array(
+			"ID" => "Идентификатор кнопки",
+			"TITLE" => "ИБ в админке",
+			"URL" => "/bitrix/admin/iblock_element_admin.php?IBLOCK_ID=".$arParams["IBLOCK_ID_PRODUCT"]."&type=products&lang=ru&find_el_y=Y",
+			"IN_PARAMS_MENU" => true, //показать в контекстном меню
+		)
+	);
+}
 $APPLICATION->SetTitle(GetMessage("TITLE", array("#COUNT#"=>$arResult["COUNT"])));
 ?>
