@@ -11,6 +11,7 @@ $APPLICATION->SetTitle("Простой компонент 2-71");
 		"URL_TAMPLATE" => "catalog_exam/#SECTION_ID#/#ELEMENT_CODE#",
 		"PROPERTY_PRIVYZKA" => "PREVYZKA_K_FIRME",
 		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "180"
+		"CACHE_TIME" => "180",
+		"PAGE_ELEMENT_COUNT" => "2"
 	)
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

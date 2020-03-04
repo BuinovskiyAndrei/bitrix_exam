@@ -21,9 +21,20 @@ if(!isset($arParams["CACHE_TIME"])){
 if (isset($_GET["F"])) {
 	$arParams["CACHE_TIME"] = 0;
 }
+
+if (empty($arParams['PAGE_ELEMENT_COUNT']))
+{
+	$arParams['PAGE_ELEMENT_COUNT'] = 3;
+}
+
+$arNavParams = array(
+	"nPageSize" => $arParams["PAGE_ELEMENT_COUNT"],
+);
+
+$arNavigation = CDBResult::GetNavParams($arNavParams);
 		
 	
-if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIFICATOR']) && !empty($arParams['PROPERTY_PRIVYZKA']) && $this->StartResultCache(false, $USER->GetGroups()))
+if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIFICATOR']) && !empty($arParams['PROPERTY_PRIVYZKA']) && $this->StartResultCache(false, array($USER->GetGroups(),$arNavigation)))
 {
 	if(!CModule::IncludeModule("iblock"))
 	{
@@ -32,6 +43,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		return;
 	}
 	
+	//echo "<pre>";print_r($arNavigation);echo "</pre>";
 	//SELECT
 	$arSelect = array(
 		"ID",
@@ -45,13 +57,14 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 	);
 
 	//EXECUTE
-	$rsIBlockElement = CIBlockElement::GetList(array("SORT" =>"DESC"), $arFilter, false, false, $arSelect);
+	$rsIBlockElement = CIBlockElement::GetList(array("SORT" =>"DESC"), $arFilter, false, $arNavParams, $arSelect);
 	while($arResClassificator = $rsIBlockElement->GetNext())
 	{
 		$idClassificator[] =  $arResClassificator["ID"];
 		$arResult["ITEMS"][$arResClassificator["ID"]]["NAME"] =  $arResClassificator["NAME"];
 	}
-	
+	$arResult["NAV_STRING"] = $rsIBlockElement->GetPageNavStringEx($navComponentObject, "", $arParams["PAGER_TEMPLATE"]);
+
 	if (!empty($idClassificator)) {
 		
 		$sort = [

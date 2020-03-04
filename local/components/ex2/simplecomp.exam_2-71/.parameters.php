@@ -24,6 +24,11 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 			"DEFAULT" => '',
 		),
+		"PAGE_ELEMENT_COUNT" => array(
+            "PARENT" => "BASE",
+			"NAME" => GetMessage("PAGE_ELEMENT_COUNT"),
+			"TYPE" => "STRING",
+		),
 		"CACHE_TIME"  =>  Array("DEFAULT"=>180),
 	),
 );

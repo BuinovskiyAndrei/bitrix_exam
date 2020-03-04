@@ -40,6 +40,8 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
 	<?endforeach;?>
 </ul>
 
+<?=$arResult["NAV_STRING"]?>
+
 <?$this->SetViewTarget('price');?>
    <div style="color:red; margin: 34px 15px 35px 15px">
 		Минимальная цена: <?=$arResult["MIN_PRICE"]?>
