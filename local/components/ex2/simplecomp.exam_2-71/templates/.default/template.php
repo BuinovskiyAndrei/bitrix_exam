@@ -19,7 +19,7 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
 <a	href="<?=$APPLICATION->GetCurPage()?>?F=Y"><?=$APPLICATION->GetCurPage()?>?F=Y</a>
 <p><?=GetMessage("CATALOG")?></p>
 <ul>
-	<?foreach ($arResult as $classificator):?>
+	<?foreach ($arResult["ITEMS"] as $classificator):?>
 	
 		<li>
 			<b><?=$classificator["NAME"];?></b>
@@ -39,3 +39,11 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
 		</li>
 	<?endforeach;?>
 </ul>
+
+<?$this->SetViewTarget('price');?>
+   <div style="color:red; margin: 34px 15px 35px 15px">
+		Минимальная цена: <?=$arResult["MIN_PRICE"]?>
+		Максимальная цена: <?=$arResult["MAX_PRICE"]?>
+   </div>
+<?$this->EndViewTarget();?> 
+

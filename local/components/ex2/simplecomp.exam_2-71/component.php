@@ -49,7 +49,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 	while($arResClassificator = $rsIBlockElement->GetNext())
 	{
 		$idClassificator[] =  $arResClassificator["ID"];
-		$arResult[$arResClassificator["ID"]]["NAME"] =  $arResClassificator["NAME"];
+		$arResult["ITEMS"][$arResClassificator["ID"]]["NAME"] =  $arResClassificator["NAME"];
 	}
 	
 	if (!empty($idClassificator)) {
@@ -90,6 +90,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 		$rsProduct->SetUrlTemplates($arParams["URL_TAMPLATE"]);
 		while($arRes = $rsProduct->GetNext())
 		{
+			$arPrice[] = $arRes["PROPERTY_PRICE_VALUE"];
 			$arButtons = CIBlock::GetPanelButtons(
 				$arRes["IBLOCK_ID"],
 				$arRes["ID"],
@@ -98,7 +99,7 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 			);
 
 		
-			$arResult[$arRes["PROPERTY_".$arParams["PROPERTY_PRIVYZKA"]."_VALUE"]]["PRODUCT"][] = [
+			$arResult["ITEMS"][$arRes["PROPERTY_".$arParams["PROPERTY_PRIVYZKA"]."_VALUE"]]["PRODUCT"][] = [
 				"NAME" => $arRes["NAME"],
 				"ID" => $arRes["ID"],
 				"PRICE" => $arRes["PROPERTY_PRICE_VALUE"],
@@ -110,6 +111,8 @@ if(!empty($arParams['IBLOCK_ID_PRODUCT']) && !empty($arParams['IBLOCK_ID_CLASSIF
 			];
 		}
 		
+		$arResult["MIN_PRICE"] = min($arPrice);
+		$arResult["MAX_PRICE"] = max($arPrice);
 		$arResult["COUNT"] = count($idClassificator);
 		
 		$this->SetResultCacheKeys(array(
